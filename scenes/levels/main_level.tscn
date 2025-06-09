@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfjw0k8wiwvx4"]
+
+[ext_resource type="PackedScene" uid="uid://b0pniirgukdrm" path="res://scenes/prefabs/player.tscn" id="1_lx3qq"]
+[ext_resource type="Texture2D" uid="uid://cittugdmyldif" path="res://icon.svg" id="2_hn3as"]
+[ext_resource type="Texture2D" uid="uid://dpkusa7ceddo7" path="res://assets/tilemaps/colored_packed.png" id="2_ojqrr"]
+[ext_resource type="PackedScene" uid="uid://bcob5e5fwn1l0" path="res://scenes/components/health_component.tscn" id="3_geiq8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkkka"]
+size = Vector2(16, 16)
+
+[node name="MainLevel" type="Node2D"]
+
+[node name="LVL" type="Node" parent="."]
+
+[node name="ColoredPacked" type="Sprite2D" parent="LVL"]
+position = Vector2(456, -112)
+texture = ExtResource("2_ojqrr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LVL"]
+position = Vector2(-96, -24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LVL/StaticBody2D"]
+shape = SubResource("RectangleShape2D_tkkka")
+
+[node name="Sprite2D" type="Sprite2D" parent="LVL/StaticBody2D"]
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("2_hn3as")
+
+[node name="HealthComponent" parent="LVL/StaticBody2D" instance=ExtResource("3_geiq8")]
+
+[node name="Player" parent="." instance=ExtResource("1_lx3qq")]

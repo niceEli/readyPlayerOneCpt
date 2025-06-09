@@ -1,0 +1,204 @@
+[gd_scene load_steps=10 format=3 uid="uid://c0gnd7hgndn3l"]
+
+[ext_resource type="AudioStream" uid="uid://uaer3kuueqxm" path="res://assets/sounds/riser.mp3" id="1_g3w80"]
+[ext_resource type="AudioStream" uid="uid://cjh0hu4rr0n0r" path="res://assets/sounds/reveal.ogg" id="2_tmk6g"]
+[ext_resource type="FontFile" uid="uid://cxdp7dhmgfkcw" path="res://assets/fonts/Kenney Pixel.ttf" id="3_oosx4"]
+
+[sub_resource type="Animation" id="Animation_tmk6g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.278431, 0.176471, 0.235294, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_k3l6u"]
+resource_name = "Startup"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1, 2.43333, 3.16667, 3.18333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.278431, 0.176471, 0.235294, 1)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 2.73,
+"stream": ExtResource("1_g3w80")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_tmk6g")
+}],
+"times": PackedFloat32Array(0, 3.1)
+}
+tracks/1/use_blend = true
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI:visible")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oosx4"]
+_data = {
+&"RESET": SubResource("Animation_tmk6g"),
+&"Startup": SubResource("Animation_k3l6u")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_apwh8"]
+font = ExtResource("3_oosx4")
+font_size = 64
+
+[sub_resource type="GDScript" id="GDScript_oosx4"]
+resource_name = "Play"
+script/source = "extends Button
+
+@export var scene: String;
+
+func _on_pressed() -> void:
+	get_tree().change_scene_to_file(scene)
+"
+
+[sub_resource type="GDScript" id="GDScript_tmk6g"]
+resource_name = "Quit"
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	get_tree().quit(0)
+"
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartupAnim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_oosx4")
+}
+autoplay = "Startup"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.278431, 0.176471, 0.235294, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 424.0
+offset_bottom = 112.0
+text = "Ready Player One
+CPT"
+label_settings = SubResource("LabelSettings_apwh8")
+
+[node name="PlayButton" type="Button" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -136.0
+offset_right = 192.0
+offset_bottom = -72.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_oosx4")
+theme_override_font_sizes/font_size = 64
+text = "Play"
+script = SubResource("GDScript_oosx4")
+scene = "uid://b0pniirgukdrm"
+
+[node name="QuitButton" type="Button" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 208.0
+offset_top = -136.0
+offset_right = 336.0
+offset_bottom = -72.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_oosx4")
+theme_override_font_sizes/font_size = 64
+text = "Quit
+"
+script = SubResource("GDScript_tmk6g")
+
+[node name="Copyright" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -344.0
+offset_top = -32.0
+offset_right = -8.0
+offset_bottom = -9.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_oosx4")
+theme_override_font_sizes/font_size = 32
+text = "©MIT Eli Cardoso 2025 - Made Using CC0 Assets"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[connection signal="pressed" from="UI/PlayButton" to="UI/PlayButton" method="_on_pressed"]
+[connection signal="pressed" from="UI/QuitButton" to="UI/QuitButton" method="_on_pressed"]

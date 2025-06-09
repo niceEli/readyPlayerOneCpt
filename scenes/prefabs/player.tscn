@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0pniirgukdrm"]
+
+[ext_resource type="PackedScene" uid="uid://2njxdi00jk17" path="res://scenes/components/player_move_component.tscn" id="1_06qtw"]
+[ext_resource type="Script" uid="uid://4veekqr7i57s" path="res://scripts/connect/player.gd" id="1_8cdkg"]
+[ext_resource type="PackedScene" uid="uid://cvuw33o6nbxp1" path="res://scenes/components/player_shoot_component.tscn" id="2_8cdkg"]
+[ext_resource type="SpriteFrames" uid="uid://dtvcke4epsbb2" path="res://assets/anim/player/player_anim.tres" id="2_56dyf"]
+[ext_resource type="PackedScene" uid="uid://bcob5e5fwn1l0" path="res://scenes/components/health_component.tscn" id="5_56dyf"]
+[ext_resource type="PackedScene" uid="uid://whrgah6grrcy" path="res://scenes/prefabs/ingame_ui.tscn" id="6_6o77n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6o77n"]
+radius = 8.0
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 1
+script = ExtResource("1_8cdkg")
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_56dyf")
+animation = &"still"
+autoplay = "still"
+
+[node name="Collisions" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6o77n")
+
+[node name="PlayerMoveComponent" parent="." instance=ExtResource("1_06qtw")]
+
+[node name="PlayerShootComponent" parent="." node_paths=PackedStringArray("self_body") instance=ExtResource("2_8cdkg")]
+bullet_speed = 400
+self_body = NodePath("..")
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_56dyf")]
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="IngameUi" parent="Canvas" instance=ExtResource("6_6o77n")]
+metadata/_edit_use_anchors_ = true
