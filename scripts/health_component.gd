@@ -5,6 +5,8 @@ extends Node2D
 
 @export var max_health: float = 20;
 
+@export var delete_node: bool = true;
+
 var m_health: float = 20;
 
 @export var health: float = 20:
@@ -14,23 +16,26 @@ var m_health: float = 20;
 		m_health = clampf(value, 0, max_health);
 		
 		if (m_health == 0): 
-			var parent = get_parent();
-			if (parent):
-				parent.queue_free();
+			if (delete_node):
+				var parent = get_parent();
+				if (parent):
+					parent.queue_free();
+			await get_tree().process_frame
+			on_die.emit()
 
 func heal(amount: float = 1) -> float:
-	health += amount;
-
-	return health;
+	return hurt(-amount)
 
 func hurt(amount: float = 1) -> float:
-	health -= amount;
 	
 	var health_tex: health_text = ht.instantiate();
 	health_tex.amount = -amount
 	health_tex.global_position = global_position
 	
-	get_tree().root.get_child(0).add_child(health_tex)
+	get_tree().current_scene.add_child(health_tex)
+	
+	health -= amount;
 
 	return health;
 	
+signal on_die()

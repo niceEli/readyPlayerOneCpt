@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c621imns7cjtq"]
+
+[ext_resource type="Script" uid="uid://bek012n83krxi" path="res://scripts/golden_egg.gd" id="1_d2m8q"]
+[ext_resource type="Texture2D" uid="uid://cdtyadrr20mor" path="res://assets/sprites/egg.tres" id="2_q8s7y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d2m8q"]
+radius = 6.0
+
+[node name="GoldenEgg" type="Area2D"]
+script = ExtResource("1_d2m8q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_d2m8q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.498039, 1)
+texture = ExtResource("2_q8s7y")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

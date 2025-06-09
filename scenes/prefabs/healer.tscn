@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dx1i6u62kft32"]
+
+[ext_resource type="Script" uid="uid://b732fquwmaylm" path="res://scripts/healer.gd" id="1_5u3vm"]
+[ext_resource type="Texture2D" uid="uid://baerg4ilmv1th" path="res://assets/tilemaps/colored-transparent_packed.png" id="2_5u3vm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d2m8q"]
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_648yl"]
+atlas = ExtResource("2_5u3vm")
+region = Rect2(672, 160, 16, 16)
+
+[node name="GoldenEgg" type="Area2D"]
+script = ExtResource("1_5u3vm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_d2m8q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.498039, 1)
+texture = SubResource("AtlasTexture_648yl")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -34,4 +34,4 @@ func _process(_delta: float) -> void:
 			scn.bullet_speed = bullet_speed
 			scn.ignore_body = self_body
 			scn.bullet_damage = damage
-			get_tree().root.get_child(0).add_child(scn)
+			get_tree().current_scene.add_child(scn)

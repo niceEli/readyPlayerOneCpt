@@ -1,12 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://whrgah6grrcy"]
+[gd_scene load_steps=6 format=3 uid="uid://whrgah6grrcy"]
 
 [ext_resource type="Script" uid="uid://dlxbpyjdw6obn" path="res://scripts/healthbar.gd" id="1_yyj6l"]
+[ext_resource type="FontFile" uid="uid://cxdp7dhmgfkcw" path="res://assets/fonts/Kenney Pixel.ttf" id="2_x3ex0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iswn6"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yyj6l"]
 bg_color = Color(0.6, 0, 0.0627451, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_330ni"]
+font = ExtResource("2_x3ex0")
+font_size = 64
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
 
 [node name="IngameUi" type="Control"]
 layout_mode = 3
@@ -31,3 +38,17 @@ theme_override_styles/background = SubResource("StyleBoxFlat_iswn6")
 theme_override_styles/fill = SubResource("StyleBoxFlat_yyj6l")
 max_value = 1.0
 show_percentage = false
+
+[node name="Eggs" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -88.0
+offset_top = 8.0
+offset_right = -16.0
+offset_bottom = 56.0
+grow_horizontal = 0
+text = "0/3 Keys"
+label_settings = SubResource("LabelSettings_330ni")
+horizontal_alignment = 2

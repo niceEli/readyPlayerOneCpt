@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cku44aiuk3kcg"]
+
+[ext_resource type="Script" uid="uid://bs2vu88efj2nt" path="res://scripts/quitter.gd" id="1_3v3b2"]
+[ext_resource type="FontFile" uid="uid://cxdp7dhmgfkcw" path="res://assets/fonts/Kenney Pixel.ttf" id="2_800fm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_330ni"]
+font = ExtResource("2_800fm")
+font_size = 64
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Quitter" type="CanvasLayer"]
+script = ExtResource("1_3v3b2")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 56.0
+text = "Quitting..."
+label_settings = SubResource("LabelSettings_330ni")

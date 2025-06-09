@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://cuhe8qtsrdikn"]
+
+[ext_resource type="Texture2D" uid="uid://baerg4ilmv1th" path="res://assets/tilemaps/colored-transparent_packed.png" id="1_0udpw"]
+[ext_resource type="Script" uid="uid://b7sedh5rqegy5" path="res://scripts/enemy.gd" id="1_vyi2f"]
+[ext_resource type="PackedScene" uid="uid://bcob5e5fwn1l0" path="res://scenes/components/health_component.tscn" id="2_jvnon"]
+[ext_resource type="AudioStream" uid="uid://cjh0hu4rr0n0r" path="res://assets/sounds/reveal.ogg" id="4_l0e1o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jvnon"]
+radius = 7.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vyi2f"]
+radius = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvnon"]
+atlas = ExtResource("1_0udpw")
+region = Rect2(384, 112, 16, 16)
+
+[node name="Enemy" type="CharacterBody2D"]
+platform_on_leave = 2
+platform_floor_layers = 0
+script = ExtResource("1_vyi2f")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_jvnon")]
+
+[node name="Killzone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("CircleShape2D_jvnon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vyi2f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_jvnon")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 32.0
+simplify_path = true
+
+[node name="Eyes" type="RayCast2D" parent="."]
+
+[node name="DieMus" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("4_l0e1o")
+
+[connection signal="body_entered" from="Killzone" to="." method="_on_killzone_body_entered"]

@@ -11,6 +11,8 @@ extends Node2D;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	label.label_settings = label.label_settings.duplicate()
+	
 	if roundi(amount) > 0:
 		label.label_settings.font_color = heal_color
 	if roundi(amount) < 0:
@@ -18,5 +20,5 @@ func _ready() -> void:
 		amount = -amount
 	if roundi(amount) == 0:
 		label.label_settings.font_color = zero_color
-		
+
 	label.text = str(roundi(amount))

@@ -3,10 +3,11 @@ extends Area2D
 @export var bullet_speed: float;
 @export var ignore_body: CollisionObject2D;
 @export var bullet_damage: float;
+@onready var sfx: AudioStreamPlayer = $sfx
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	sfx.play(0.1)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
